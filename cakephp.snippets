@@ -1,0 +1,146 @@
+# CakePHP 2.x snippets
+# http://www.cakephp.org
+# For use with Vim snipMate
+# http://www.vim.org/scripts/script.php?script_id=2540
+# Author Tim Roberts (http://www.zumointernet.com)
+
+# This is a work in progress and new snippets will 
+# be added regularly.
+
+# model snippets
+snippet model
+	<?php   
+	/**
+	 * ${1:model} Model
+	 */
+	class ${2:model} extends AppModel {
+	
+	}
+snippet actsas
+	/**
+	 * actsAs property
+	 */
+		var $actsAs = array('${1:behavior}'); 
+snippet hasone
+	/**
+	 * hasOne property
+	 */
+		var $hasOne = array('${1:model}');
+snippet hasmany
+	/**
+	 * hasMany property
+	 */
+		var $hasMany = array('${1:model}');
+snippet belongsto
+	/**
+	 * belongsTo property
+	 */
+		var $belongsTo = array('${1:model}');
+snippet habtm
+	/**
+	 * hasAndBelongsToMany property
+	 */
+		var $hasAndBelongsToMany = array('${1:model}');
+snippet validate
+	/**
+	 * validate property
+	 */
+		var $validate = array(
+			'${1:field}' => array(
+				'rule' => '',
+				'message' => ''
+			)
+		);
+snippet order
+	/**
+	 * order property
+	 */
+		var $order = array('${1:field}'=>'${2:direction}');
+
+#controller snippets
+snippet controller
+	<?php  
+	/**
+	 * ${1:controller} Controller
+	 */
+	class ${2:controller}Controller extends AppController {
+	}
+snippet components
+	/**
+	 * components property
+	 */
+		var $components = array('${1:component}');
+snippet helpers
+	/**
+	 * helpers property
+	 */
+		var $helpers = array('${1:helper}');
+snippet paginate
+	/**
+	 * paginate property
+	 */
+		var $paginate = array('limit'=>'${1:limit}');
+snippet create
+	/**
+	 * create
+	 */
+		public function create($id=null) {
+			if(!empty($this->request->data)) {
+				$this->${1:model}->create;
+				if($this->${2:model}->save($this->request->data)) {
+					$this->redirect(array(
+						'controller'=>'${3:controller}',
+						'action'=>''${4:action}''));
+				}
+			} 
+		}
+snippet edit
+	/**
+	 * edit
+	 */
+		public function edit($id=null) {
+			if(!empty($this->request->data)) {
+				$this->${1:model}->id = $id;
+				if(!$this->${2:model}->exists()) {
+					throw new NotFoundException('Record not found');
+				}
+				if($this->${2:model}->save($this->request->data)) {
+					$this->redirect(array(
+						'controller'=>'${3:controller}',
+						'action'=>${4:action}));
+				}
+			} else {
+				$this->request->data = $this->${4:model}->read(null,$id);
+			}
+		}
+snippet delete
+	/** 
+	 * delete
+	 */
+		 public function delete($id=null) {
+		 	$this->${1:model}->id = $id;
+			if(!$this->${2:model}->exists()) {
+				throw new NotFoundExeption('Record not found');
+			}
+			$this->${3:model}->delete($id);
+			$this->Session->setFlash('${4:message}','${5:element}');
+			$this->redirect(array(
+					'controller'=>'${6:controller}',
+					'action'=>${7:action}));
+		}
+snippet loadmodel
+	$this->loadModel('${1:model}');
+
+#view helpers
+
+#form
+snippet element
+	<?php echo $this->element('${1:element}')?>
+snippet formstart
+	<?php echo $this->Form->create()?>
+snippet formend
+	<?php echo $this->Form->end()?>
+snippet input
+	<?php echo $this->Form->input('${1:model}.${2:field}')?>
+snippet submit
+	<?php echo $this->Form->submit('${1:text}')?>
