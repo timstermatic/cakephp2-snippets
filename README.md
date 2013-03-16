@@ -5,7 +5,7 @@ Collection of CakePHP 2.x snippets for use with the vim plugin, snipMate
 
 Requires snipMate: https://github.com/msanders/snipmate.vim
 
-Instalation:
+Installation:
 -------------
 
 Clone into your snippets directory.
